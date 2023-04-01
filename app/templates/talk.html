@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Title</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </head>
+    <body>
+        <script>
+            $(document).ready(function() {
+                var socket = io.connect("http://127.0.0.1:5000/");
+
+                socket.on('connect', function () {
+                    socket.send("User Connected!");
+                });
+
+                socket.on('message', function(data) {
+                    $('#messages').prepend($('<p>').text(data));
+                });
+
+                $('#sendBtn').on('click', function() {
+                    socket.send($('#username').val() + ': ' + $('#message').val());
+                    $('#message').val('');
+                });
+            });
+        </script>
+
+        </div>
+
+        <input type="text" id="username" placeholder="Username">
+        <input type="text" id="message" placeholder="Message">
+
+        <button id="sendBtn">Send</button>
+        <div id="messages"></div>
+    </body>
+</html>

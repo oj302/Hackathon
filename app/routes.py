@@ -5,3 +5,7 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     return render_template('base.html')
+
+@main.route('/talk')
+def talk():
+    return render_template('talk.html')
