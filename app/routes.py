@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template,request
 
 main = Blueprint('main', __name__)
 
@@ -8,4 +8,5 @@ def index():
 
 @main.route('/talk')
 def talk():
-    return render_template('talk.html')
+    username = request.cookies.get('username')
+    return render_template('talk.html', username=username)
